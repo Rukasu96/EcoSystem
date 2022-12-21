@@ -1,0 +1,15 @@
+C:\Users\Kuksz\Desktop\EcoSystem\EcoSystem\bin\Debug\net6.0\EcoSystem.exe
+C:\Users\Kuksz\Desktop\EcoSystem\EcoSystem\bin\Debug\net6.0\EcoSystem.deps.json
+C:\Users\Kuksz\Desktop\EcoSystem\EcoSystem\bin\Debug\net6.0\EcoSystem.runtimeconfig.json
+C:\Users\Kuksz\Desktop\EcoSystem\EcoSystem\bin\Debug\net6.0\EcoSystem.dll
+C:\Users\Kuksz\Desktop\EcoSystem\EcoSystem\bin\Debug\net6.0\EcoSystem.pdb
+C:\Users\Kuksz\Desktop\EcoSystem\EcoSystem\obj\Debug\net6.0\EcoSystem.csproj.AssemblyReference.cache
+C:\Users\Kuksz\Desktop\EcoSystem\EcoSystem\obj\Debug\net6.0\EcoSystem.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Kuksz\Desktop\EcoSystem\EcoSystem\obj\Debug\net6.0\EcoSystem.AssemblyInfoInputs.cache
+C:\Users\Kuksz\Desktop\EcoSystem\EcoSystem\obj\Debug\net6.0\EcoSystem.AssemblyInfo.cs
+C:\Users\Kuksz\Desktop\EcoSystem\EcoSystem\obj\Debug\net6.0\EcoSystem.csproj.CoreCompileInputs.cache
+C:\Users\Kuksz\Desktop\EcoSystem\EcoSystem\obj\Debug\net6.0\EcoSystem.dll
+C:\Users\Kuksz\Desktop\EcoSystem\EcoSystem\obj\Debug\net6.0\refint\EcoSystem.dll
+C:\Users\Kuksz\Desktop\EcoSystem\EcoSystem\obj\Debug\net6.0\EcoSystem.pdb
+C:\Users\Kuksz\Desktop\EcoSystem\EcoSystem\obj\Debug\net6.0\EcoSystem.genruntimeconfig.cache
+C:\Users\Kuksz\Desktop\EcoSystem\EcoSystem\obj\Debug\net6.0\ref\EcoSystem.dll
