@@ -12,6 +12,7 @@ namespace EcoSystem
         private int power;
         private int initiative;
         private string model;
+
         public bool isAlive;
 
         public enum Direction { Up, Down, Right, Left }
@@ -23,6 +24,7 @@ namespace EcoSystem
 
         public Direction Direct { get; set; }
         public Coordinate AnimPos { get; set; }
+        public Coordinate OldPos { get; set; }
 
         public Animal(int age, int power, int initiative, int posX, int posY)
         {
@@ -30,12 +32,13 @@ namespace EcoSystem
             Power = power;
             Initiative = initiative;
             AnimPos = new Coordinate(posX, posY);
+            OldPos = new Coordinate(posX, posY);
             isAlive = true;
         }
 
         public Animal Fight(Animal animal)
         {
-            if(this.power < animal.power)
+            if(this.power < animal.power || this.power == animal.power)
             {
                 AnimalsManager.Instance.RemoveAnimal(this);
                 return animal;
@@ -49,7 +52,7 @@ namespace EcoSystem
         public abstract void Move();
         public bool TryMove(int X, int Y)
         {
-            return SlotController.Instance.IsSlotEmpty(X, Y);
+            return SlotController.Instance.IsSlot(X, Y);
         }
         
     }

@@ -4,7 +4,9 @@ Enviro enviro = new Enviro();
 TurnBasedController turnBased = new TurnBasedController();
 Human human = new Human(20, 20, 20, 10,3);
 Wolf wolf = new Wolf(10, 10, 10, 5, 2);
+Wolf wolf2 = new Wolf(10, 10, 10, 6, 2);
 AnimalsManager.Instance.AddAnimal(wolf);
+AnimalsManager.Instance.AddAnimal(wolf2);
 enviro.Draw();
 
 while (true)

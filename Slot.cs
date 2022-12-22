@@ -35,7 +35,7 @@ namespace EcoSystem
 
         public void SetSlotOccupied(int posX, int posY, Animal animal)
         {
-            if(IsEmpty == false)
+            if(IsEmpty == false && this.animal.Model != animal.Model)
             {
                 this.animal = this.animal.Fight(animal);
             }
@@ -43,13 +43,27 @@ namespace EcoSystem
             {
                 IsEmpty = false;
                 this.animal = animal;
-
             }
 
             Coordinate.X = posX;
             Coordinate.Y = posY;
+        }
 
+        public bool IsTheSameModel(Animal animal)
+        {
+            if(this.animal == null)
+            {
+                return false;
+            }
 
+            if(this.animal.Model == animal.Model)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
         
     }
