@@ -8,6 +8,8 @@ Wolf wolf2 = new Wolf(10, 10, 10, 6, 2);
 AnimalsManager.Instance.AddAnimal(wolf);
 AnimalsManager.Instance.AddAnimal(wolf2);
 enviro.Draw();
+Grass grass = new Grass();
+FlowersManager.Instance.AddFlower(grass);
 
 while (true)
 {
@@ -73,6 +75,6 @@ while (true)
                     break;
             }
         }
-        turnBased.StartTurn(AnimalsManager.Instance.animals);
+        turnBased.StartTurn(AnimalsManager.Instance.animals, FlowersManager.Instance.flowers);
     }
 }

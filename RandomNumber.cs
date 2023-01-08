@@ -13,5 +13,7 @@ namespace EcoSystem
         {
                 return random.Next(min, max);
         }
+
+        
     }
 }

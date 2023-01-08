@@ -10,7 +10,7 @@ namespace EcoSystem
     {
         private int width;
         private int height;
-        
+
 
         public Enviro()
         {
@@ -38,16 +38,16 @@ namespace EcoSystem
             } while (isCorrect);
 
             return value;
-            
+
         }
 
 
         public void Draw()
         {
             Console.Write("Podaj szerokość: ");
-            this.width = SetValue();
+            width = SetValue();
             Console.Write("Podaj wysokość: ");
-            this.height = SetValue();
+            height = SetValue();
 
             int row = 0;
 
@@ -82,7 +82,7 @@ namespace EcoSystem
 
         }
 
-        
+
 
 
     }

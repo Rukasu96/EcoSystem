@@ -13,10 +13,12 @@ namespace EcoSystem
         {
         }
 
-        public void StartTurn(List<Animal> animals)
+        public void StartTurn(List<Animal> animals, List<Flower> flowers)
         {
-            var group = animals.OrderByDescending(x => x.Initiative).ThenByDescending(x => x.Age).ToList();
-            group.ForEach(x => x.Move());
+            var animalGroup = animals.OrderByDescending(x => x.Initiative).ThenByDescending(x => x.Age).ToList();
+            animalGroup.ForEach(x => x.Move());
+
+            flowers.ForEach(x => x.TryToReproduce());
         }
         
 

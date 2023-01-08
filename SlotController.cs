@@ -8,7 +8,7 @@ namespace EcoSystem
 {
     internal class SlotController
     {
-        private List<Slot> slots = new List<Slot>();
+        public List<Slot> slots = new List<Slot>();
 
         private static SlotController instance = new SlotController();
         public static SlotController Instance
@@ -33,7 +33,7 @@ namespace EcoSystem
         public void ChangeSlotOccupied(int posX, int posY, Animal animal)
         {
             var slotToChange = slots.FirstOrDefault(x => x.Coordinate.X == posX && x.Coordinate.Y == posY);
-            if(slotToChange != null)
+            if (slotToChange != null)
             {
                 slotToChange.SetSlotOccupied(posX, posY, animal);
             }
@@ -41,11 +41,24 @@ namespace EcoSystem
         public bool CheckSlotModel(int posX, int posY, Animal animal)
         {
             Slot slot = slots.FirstOrDefault(x => x.Coordinate.X == posX && x.Coordinate.Y == posY);
-            if( slot == null)
+            if (slot == null)
             {
                 return false;
             }
             return slot.IsTheSameModel(animal);
+        }
+
+        public bool CheckSlotFlower(int posX, int posY)
+        {
+            Slot slot = slots.FirstOrDefault(x => x.Coordinate.X == posX && x.Coordinate.Y == posY);
+            {
+                if (slot == null)
+                {
+                    return false;
+                }
+                return slot.IsFlowerNull();
+
+            }
         }
 
         public bool IsSlot(int posX, int posY)
@@ -70,7 +83,7 @@ namespace EcoSystem
             }
 
             return slot.IsEmpty;
-            
+
         }
 
     }

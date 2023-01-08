@@ -15,7 +15,7 @@ namespace EcoSystem
             Console.SetCursorPosition(posX, posY);
             Console.WriteLine(Model);
         }
-        
+
         public override void Move()
         {
             switch (Direct)
@@ -42,6 +42,12 @@ namespace EcoSystem
             SlotController.Instance.ChangeSlotOccupied(AnimPos.X, AnimPos.Y, this);
             Console.SetCursorPosition(AnimPos.X, AnimPos.Y);
             Console.WriteLine(Model);
+        }
+
+        public override Animal CreateNew(int AnimPosX, int AnimPosY)
+        {
+            Animal human = new Human(10, 10, 10, AnimPosX, AnimPosY);
+            return human;
         }
 
     }

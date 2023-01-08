@@ -11,6 +11,7 @@ namespace EcoSystem
     {
         private string symbol;
         private Animal animal;
+        private Flower flower;
         public Coordinate Coordinate { get; set; }
         public bool IsEmpty;
 
@@ -27,7 +28,8 @@ namespace EcoSystem
             IsEmpty = true;
             Coordinate.X = posX;
             Coordinate.Y = posY;
-            this.animal = null;
+            animal = null;
+            flower = null;
 
             Console.SetCursorPosition(posX, posY);
             Console.WriteLine(symbol);
@@ -35,28 +37,48 @@ namespace EcoSystem
 
         public void SetSlotOccupied(int posX, int posY, Animal animal)
         {
-            if(IsEmpty == false && this.animal.Model != animal.Model)
+            if(this.animal != null)
             {
-                this.animal = this.animal.Fight(animal);
+                MakeFight(animal);
+            }
+           
+            else if (this.flower != null)
+            {
+                RemoveFlowerFromSlot();
             }
             else
             {
                 IsEmpty = false;
                 this.animal = animal;
             }
-
+          
             Coordinate.X = posX;
             Coordinate.Y = posY;
         }
 
+        
+        public void SetFlowerSlot(int posX, int posY, Flower flower)
+        {
+            IsEmpty = false;
+            this.flower = flower;
+
+            Coordinate.X = posX;
+            Coordinate.Y = posY;
+        }
+        public void RemoveFlowerFromSlot()
+        {
+            FlowersManager.Instance.RemoveFlower(this.flower);
+            this.flower = null;
+        }
+
         public bool IsTheSameModel(Animal animal)
         {
-            if(this.animal == null)
+            if (this.animal == null)
             {
                 return false;
             }
 
-            if(this.animal.Model == animal.Model)
+            if (this.animal.Model == animal.Model)
             {
                 return true;
             }
@@ -65,6 +87,19 @@ namespace EcoSystem
                 return false;
             }
         }
-        
+
+        public bool IsFlowerNull()
+        {
+            return this.flower == null;
+        }
+
+        private void MakeFight(Animal animal)
+        {
+            if (IsEmpty == false && this.animal.Model != animal.Model)
+            {
+                this.animal = this.animal.Fight(animal);
+            }
+        }
+
     }
 }

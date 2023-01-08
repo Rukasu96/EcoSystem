@@ -38,7 +38,7 @@ namespace EcoSystem
 
         public Animal Fight(Animal animal)
         {
-            if(this.power < animal.power || this.power == animal.power)
+            if (power < animal.power || power == animal.power)
             {
                 AnimalsManager.Instance.RemoveAnimal(this);
                 return animal;
@@ -50,10 +50,81 @@ namespace EcoSystem
             }
         }
         public abstract void Move();
+        public abstract Animal CreateNew(int AnimPosX, int AnimPosY);
         public bool TryMove(int X, int Y)
         {
             return SlotController.Instance.IsSlot(X, Y);
         }
-        
+
+        public void Reproduction(int animalPosX, int animalPosY)
+        {
+            bool itsDone = false;
+            List<Coordinate> coordinateList = new List<Coordinate>();
+
+            while (itsDone == false)
+            {
+                int randX = RandomNumber.GenerateNumber(0, 2);
+                int randY = RandomNumber.GenerateNumber(0, 2);
+                int randAnimal = RandomNumber.GenerateNumber(1, 3);
+
+                if(RandomNumber.GenerateNumber(0,2) == 0)
+                {
+                    randX *= -1;
+                }
+
+                if (RandomNumber.GenerateNumber(0, 2) == 0)
+                {
+                    randY *= -1;
+                }
+
+                switch (randAnimal)
+                {
+                    case 1:
+                        Coordinate coordinateToBlock = new Coordinate(AnimPos.X + randX, AnimPos.Y + randY);
+
+                        if (!coordinateList.Contains(coordinateToBlock))
+                        {
+                            coordinateList.Add(coordinateToBlock);
+                        }
+
+                        if (SlotController.Instance.IsSlotEmpty(AnimPos.X + randX, AnimPos.Y + randY))
+                        {
+                            var animal = CreateNew(AnimPos.X + randX, AnimPos.Y + randY);
+                            AnimalsManager.Instance.AddAnimal(animal);
+                            itsDone = true;
+                        }
+                        break;
+                    case 2:
+                        Coordinate coordinateToBlock2 = new Coordinate(animalPosX + randX, animalPosY + randY);
+
+                        if (!coordinateList.Contains(coordinateToBlock2))
+                        {
+                            coordinateList.Add(coordinateToBlock2);
+
+                        }
+
+                        if (SlotController.Instance.IsSlotEmpty(animalPosX + randX, animalPosY + randY))
+                        {
+                            var animal = CreateNew(animalPosX + randX, animalPosY + randY);
+                            AnimalsManager.Instance.AddAnimal(animal);
+                            itsDone = true;
+                        }
+                        break;
+                    default:
+                        break;
+                }
+
+                if (coordinateList.Count == 10)
+                {
+                    coordinateList.Clear();
+                    itsDone = true;
+                }
+
+            }
+
+
+
+        }
+
     }
 }
