@@ -11,37 +11,72 @@ namespace EcoSystem
 
         public Human(int age, int power, int initiative, int posX, int posY) : base(age, power, initiative, posX, posY)
         {
-            Model = "C";
+            Model = "H";
             Console.SetCursorPosition(posX, posY);
             Console.WriteLine(Model);
         }
 
-        public override void Move()
+        public void Move()
         {
+            OldPos.X = AnimPos.X;
+            OldPos.Y = AnimPos.Y;
+
             switch (Direct)
             {
                 case Direction.Up:
-                    SlotController.Instance.ChangeSlotEmpty(AnimPos.X, AnimPos.Y);
                     AnimPos.Y--;
                     break;
                 case Direction.Down:
-                    SlotController.Instance.ChangeSlotEmpty(AnimPos.X, AnimPos.Y);
                     AnimPos.Y++;
                     break;
                 case Direction.Right:
-                    SlotController.Instance.ChangeSlotEmpty(AnimPos.X, AnimPos.Y);
                     AnimPos.X++;
                     break;
                 case Direction.Left:
-                    SlotController.Instance.ChangeSlotEmpty(AnimPos.X, AnimPos.Y);
                     AnimPos.X--;
                     break;
                 default:
                     break;
             }
-            SlotController.Instance.ChangeSlotOccupied(AnimPos.X, AnimPos.Y, this);
-            Console.SetCursorPosition(AnimPos.X, AnimPos.Y);
-            Console.WriteLine(Model);
+
+            if (SlotController.Instance.ReturnAnimal(AnimPos.X, AnimPos.Y) != null)
+            {
+                Animal anim = SlotController.Instance.ReturnAnimal(AnimPos.X, AnimPos.Y);
+                Animal winAnimal = Fight(anim);
+
+                if (anim.Model == "T")
+                {
+                    if (winAnimal == null)
+                    {
+                        AnimPos.X = OldPos.X;
+                        AnimPos.Y = OldPos.Y;
+                    }
+                    else
+                    {
+                        SlotController.Instance.ChangeSlotEmpty(OldPos.X, OldPos.Y);
+                        SlotController.Instance.ChangeSlotOccupied(AnimPos.X, AnimPos.Y, winAnimal);
+                        Console.SetCursorPosition(AnimPos.X, AnimPos.Y);
+                        Console.WriteLine(Model);
+                    }
+                }
+                else
+                {
+                    SlotController.Instance.ChangeSlotEmpty(OldPos.X, OldPos.Y);
+                    SlotController.Instance.ChangeSlotOccupied(AnimPos.X, AnimPos.Y, winAnimal);
+                    Console.SetCursorPosition(AnimPos.X, AnimPos.Y);
+                    Console.WriteLine(Model);
+                }
+
+                
+            }
+            else
+            {
+                SlotController.Instance.ChangeSlotEmpty(OldPos.X, OldPos.Y);
+                SlotController.Instance.ChangeSlotOccupied(AnimPos.X, AnimPos.Y, this);
+                Console.SetCursorPosition(AnimPos.X, AnimPos.Y);
+                Console.WriteLine(Model);
+            }
+           
         }
 
         public override Animal CreateNew(int AnimPosX, int AnimPosY)

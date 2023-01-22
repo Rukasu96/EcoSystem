@@ -38,7 +38,23 @@ namespace EcoSystem
 
         public Animal Fight(Animal animal)
         {
-            if (power < animal.power || power == animal.power)
+            if (this.model == "T" || animal.model == "T")
+            {
+                if(power > animal.power + 3)
+                {
+                    AnimalsManager.Instance.RemoveAnimal(animal);
+                    return this;
+                }else if(power + 3 < animal.power)
+                {
+                    AnimalsManager.Instance.RemoveAnimal(this);
+                    return animal;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            else if (power < animal.power || power == animal.power)
             {
                 AnimalsManager.Instance.RemoveAnimal(this);
                 return animal;
@@ -49,7 +65,118 @@ namespace EcoSystem
                 return this;
             }
         }
-        public abstract void Move();
+        public void Move(int speed)
+        {
+            if(model == "H")
+            {
+                return;
+            }
+
+            SetOldPos(AnimPos.X, AnimPos.Y);
+
+            bool canMove = false;
+            while (canMove == false)
+            {
+                int rand = RandomNumber.GenerateNumber(0, 4);
+                switch (rand)
+                {
+                    case 0:
+                        if (TryMove(AnimPos.X, AnimPos.Y - speed))
+                        {
+                            canMove = true;
+                            AnimPos.Y -= speed;
+                        }
+                        break;
+                    case 1:
+                        if (TryMove(AnimPos.X, AnimPos.Y + speed))
+                        {
+                            canMove = true;
+                            AnimPos.Y += speed;
+                        }
+                        break;
+                    case 2:
+                        if (TryMove(AnimPos.X + speed, AnimPos.Y))
+                        {
+                            canMove = true;
+                            AnimPos.X += speed;
+                        }
+                        break;
+                    case 3:
+                        if (TryMove(AnimPos.X - speed, AnimPos.Y))
+                        {
+                            canMove = true;
+                            AnimPos.X -= speed;
+                        }
+                        break;
+                    default:
+                        break;
+                }
+            }
+
+            if (SlotController.Instance.ReturnAnimal(AnimPos.X, AnimPos.Y) != null)
+            {
+                Animal anim = SlotController.Instance.ReturnAnimal(AnimPos.X, AnimPos.Y);
+                Animal winAnimal = Fight(anim);
+
+                if(this.model == "T" || anim.model == "T")
+                {
+                    if(winAnimal == null)
+                    {
+                        AnimPos.X = OldPos.X;
+                        AnimPos.Y = OldPos.Y;
+                    }
+                    else
+                    {
+                        SlotController.Instance.ChangeSlotEmpty(OldPos.X, OldPos.Y);
+                        SlotController.Instance.ChangeSlotOccupied(AnimPos.X, AnimPos.Y, winAnimal);
+                        Console.SetCursorPosition(AnimPos.X, AnimPos.Y);
+                        Console.WriteLine(Model);
+                    }
+                }
+                else
+                {
+                    SlotController.Instance.ChangeSlotEmpty(OldPos.X, OldPos.Y);
+                    SlotController.Instance.ChangeSlotOccupied(AnimPos.X, AnimPos.Y, Fight(anim));
+                    Console.SetCursorPosition(AnimPos.X, AnimPos.Y);
+                    Console.WriteLine(Model);
+                }
+
+            }
+            else if (SlotController.Instance.CheckSlotModel(AnimPos.X, AnimPos.Y, this))
+            {
+                //Second animal position
+                int animalPosX = AnimPos.X;
+                int animalPosY = AnimPos.Y;
+
+                AnimPos.X = OldPos.X;
+                AnimPos.Y = OldPos.Y;
+
+                Reproduction(animalPosX, animalPosY);
+            }
+            else if (SlotController.Instance.CheckSlotFlower(AnimPos.X, AnimPos.Y))
+            {
+                SlotController.Instance.ChangeSlotEmpty(OldPos.X, OldPos.Y);
+                SlotController.Instance.ChangeSlotOccupied(AnimPos.X, AnimPos.Y, this);
+                Console.SetCursorPosition(AnimPos.X, AnimPos.Y);
+                Console.WriteLine(Model);
+            }
+            else
+            { 
+                    SlotController.Instance.ChangeSlotEmpty(OldPos.X, OldPos.Y);
+                    SlotController.Instance.ChangeSlotOccupied(AnimPos.X, AnimPos.Y, this);
+                    Console.SetCursorPosition(AnimPos.X, AnimPos.Y);
+                    Console.WriteLine(Model);
+            }
+
+            
+        }
+        private void SetOldPos(int posX, int posY)
+        {
+            OldPos.X = posX;
+            OldPos.Y = posY;
+        }
+
+
         public abstract Animal CreateNew(int AnimPosX, int AnimPosY);
         public bool TryMove(int X, int Y)
         {

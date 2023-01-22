@@ -2,11 +2,11 @@
 
 Enviro enviro = new Enviro();
 TurnBasedController turnBased = new TurnBasedController();
-Human human = new Human(20, 20, 20, 10,3);
+Human human = new Human(20, 8, 20, 10,3);
 Wolf wolf = new Wolf(10, 10, 10, 5, 2);
-Wolf wolf2 = new Wolf(10, 10, 10, 6, 2);
-AnimalsManager.Instance.AddAnimal(wolf);
-AnimalsManager.Instance.AddAnimal(wolf2);
+Sheep sheep = new Sheep(10, 10, 10, 6, 2);
+Antelope antelope = new Antelope(20, 3, 15, 12, 5);
+Turtle turtle = new Turtle(30, 7, 2, 12, 5);
 enviro.Draw();
 Grass grass = new Grass();
 FlowersManager.Instance.AddFlower(grass);

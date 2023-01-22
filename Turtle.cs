@@ -6,20 +6,20 @@ using System.Threading.Tasks;
 
 namespace EcoSystem
 {
-    internal class Wolf : Animal
+    internal class Turtle : Animal
     {
-        public Wolf(int age, int power, int initiative, int posX, int posY) : base(age, power, initiative, posX, posY)
+        public Turtle(int age, int power, int initiative, int posX, int posY) : base(age, power, initiative, posX, posY)
         {
-            Model = "W";
+            Model = "T";
             Console.SetCursorPosition(posX, posY);
             Console.WriteLine(Model);
             AnimalsManager.Instance.AddAnimal(this);
         }
-        
+
         public override Animal CreateNew(int AnimPosX, int AnimPosY)
         {
-            Wolf wolf = new Wolf(10, 10, 10, AnimPosX, AnimPosY);
-            return wolf;
+            Turtle turtle = new Turtle(30, 7, 2, AnimPosX, AnimPosY);
+            return turtle;
         }
     }
 }

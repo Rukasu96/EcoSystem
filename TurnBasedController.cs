@@ -16,9 +16,39 @@ namespace EcoSystem
         public void StartTurn(List<Animal> animals, List<Flower> flowers)
         {
             var animalGroup = animals.OrderByDescending(x => x.Initiative).ThenByDescending(x => x.Age).ToList();
-            animalGroup.ForEach(x => x.Move());
+            foreach(Animal animal in animalGroup)
+            {
+                switch (animal.Model)
+                {
+                    case "A":
+                        animal.Move(2);
+                        break;
+                    case "T":
+                        if(RandomNumber.GenerateNumber(0, 4) == 2)
+                        {
+                            animal.Move(1);
+                        }
+                        break;
+                    default:
+                        animal.Move(1);
+                        break;
+                }
 
-            flowers.ForEach(x => x.TryToReproduce());
+            }
+
+            foreach(Flower flower in flowers)
+            {
+                switch (flower.Model)
+                {
+                    case "M":
+                        flower.TryToReproduce();
+                        flower.TryToReproduce();
+                        break;
+                    default:
+                        flower.TryToReproduce();
+                        break;
+                }
+            }
         }
         
 

@@ -38,6 +38,17 @@ namespace EcoSystem
                 slotToChange.SetSlotOccupied(posX, posY, animal);
             }
         }
+        public Animal ReturnAnimal(int posX, int posY)
+        {
+            Slot slot = slots.FirstOrDefault(x => x.Coordinate.X == posX && x.Coordinate.Y == posY);
+            
+            if (slot == null)
+            {
+                return null;
+            }
+
+            return slot.Animal;
+        }
         public bool CheckSlotModel(int posX, int posY, Animal animal)
         {
             Slot slot = slots.FirstOrDefault(x => x.Coordinate.X == posX && x.Coordinate.Y == posY);
