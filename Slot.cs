@@ -52,9 +52,12 @@ namespace EcoSystem
                 if(this.flower.Model == "G")
                 {
                     animal.Power += 3;
-                }else if(this.flower.Model == "B")
+                }else if(this.flower.Model == "B" || this.flower.Model == "D")
                 {
-                    AnimalsManager.Instance.RemoveAnimal(animal);
+                    if (animal.Model != "C")
+                    {
+                        AnimalsManager.Instance.RemoveAnimal(animal);
+                    }
                 }
 
                 RemoveFlowerFromSlot();
@@ -76,6 +79,15 @@ namespace EcoSystem
             Coordinate.X = posX;
             Coordinate.Y = posY;
         }
+        public void SetAnimalSlot(int posX, int posY, Animal animal)
+        {
+            IsEmpty = false;
+            this.animal = animal;
+
+            Coordinate.X = posX;
+            Coordinate.Y = posY;
+        }
+
         public void RemoveFlowerFromSlot()
         {
             FlowersManager.Instance.RemoveFlower(this.flower);

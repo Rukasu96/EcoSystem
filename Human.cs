@@ -8,32 +8,62 @@ namespace EcoSystem
 {
     internal class Human : Animal
     {
+        private bool Sprint;
+        public int speed = 1;
 
-        public Human(int age, int power, int initiative, int posX, int posY) : base(age, power, initiative, posX, posY)
+        private int moveCount = 0;
+        public Human(int age, int power, int initiative) : base(age, power, initiative)
         {
             Model = "H";
-            Console.SetCursorPosition(posX, posY);
+            Sprint = false;
+            Console.SetCursorPosition(AnimPos.X, AnimPos.Y);
             Console.WriteLine(Model);
+        }
+
+        public void UsingSprint()
+        {
+            if(moveCount > 10 || moveCount == 0) 
+            {
+                Sprint = true;
+                speed = 2;
+                moveCount = 0;
+            }
+        }
+
+        private void StopSprint()
+        {
+            Sprint = false;
+            speed = 1;
         }
 
         public void Move()
         {
+            if (Sprint)
+            {
+                moveCount++;
+            }
+
+            if(moveCount == 5)
+            {
+                StopSprint();
+            }
+
             OldPos.X = AnimPos.X;
             OldPos.Y = AnimPos.Y;
 
             switch (Direct)
             {
                 case Direction.Up:
-                    AnimPos.Y--;
+                    AnimPos.Y -= speed;
                     break;
                 case Direction.Down:
-                    AnimPos.Y++;
+                    AnimPos.Y += speed;
                     break;
                 case Direction.Right:
-                    AnimPos.X++;
+                    AnimPos.X += speed;
                     break;
                 case Direction.Left:
-                    AnimPos.X--;
+                    AnimPos.X -= speed;
                     break;
                 default:
                     break;
@@ -81,7 +111,7 @@ namespace EcoSystem
 
         public override Animal CreateNew(int AnimPosX, int AnimPosY)
         {
-            Animal human = new Human(10, 10, 10, AnimPosX, AnimPosY);
+            Animal human = new Human(10, 10, 10);
             return human;
         }
 

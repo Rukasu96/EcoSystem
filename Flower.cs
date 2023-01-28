@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -69,13 +70,15 @@ namespace EcoSystem
                 {
                     var flower = CreateNew(FlowerPos.X + randX, FlowerPos.Y + randY);
                     itsDone = true;
+                    Slot slot = SlotController.Instance.slots.First(x => x.Coordinate.X == flower.FlowerPos.X && x.Coordinate.Y == flower.FlowerPos.Y);
+                    slot.SetFlowerSlot(flower.FlowerPos.X, flower.FlowerPos.Y, flower);
                 }
-            }
 
-            if (coordinateList.Count == 8)
-            {
-                coordinateList.Clear();
-                itsDone = true;
+                if (coordinateList.Count == 8)
+                {
+                    coordinateList.Clear();
+                    itsDone = true;
+                }
             }
         }
 

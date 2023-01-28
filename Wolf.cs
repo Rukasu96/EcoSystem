@@ -8,6 +8,13 @@ namespace EcoSystem
 {
     internal class Wolf : Animal
     {
+        public Wolf(int age, int power, int initiative) : base(age, power, initiative)
+        {
+            Model = "W";
+            Console.SetCursorPosition(AnimPos.X, AnimPos.Y);
+            Console.WriteLine(Model);
+            AnimalsManager.Instance.AddAnimal(this);
+        }
         public Wolf(int age, int power, int initiative, int posX, int posY) : base(age, power, initiative, posX, posY)
         {
             Model = "W";
@@ -15,7 +22,7 @@ namespace EcoSystem
             Console.WriteLine(Model);
             AnimalsManager.Instance.AddAnimal(this);
         }
-        
+
         public override Animal CreateNew(int AnimPosX, int AnimPosY)
         {
             Wolf wolf = new Wolf(10, 10, 10, AnimPosX, AnimPosY);

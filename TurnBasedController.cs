@@ -29,6 +29,13 @@ namespace EcoSystem
                             animal.Move(1);
                         }
                         break;
+                    case "C":
+                        if(animal is CyberSheep)
+                        {
+                            CyberSheep cs = (CyberSheep)animal;
+                            cs.MoveCyberSheep(1);
+                        }
+                        break;
                     default:
                         animal.Move(1);
                         break;
@@ -36,7 +43,8 @@ namespace EcoSystem
 
             }
 
-            foreach(Flower flower in flowers)
+            var flowerGroup = flowers.ToList();
+            foreach(Flower flower in flowerGroup)
             {
                 switch (flower.Model)
                 {

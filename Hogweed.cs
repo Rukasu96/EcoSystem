@@ -1,26 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace EcoSystem
 {
-    internal class Grass : Flower
+    internal class Hogweed : Flower
     {
-
-        public Grass() : base()
+        public Hogweed() : base()
         {
-            Model = "G";
+            Model = "D";
             Console.SetCursorPosition(FlowerPos.X, FlowerPos.Y);
             Console.WriteLine(Model);
             FlowersManager.Instance.AddFlower(this);
         }
-
-        public Grass(int flowerPosX, int flowerPosY) : base(flowerPosX,flowerPosY)
+        public Hogweed(int flowerPosX, int flowerPosY) : base(flowerPosX, flowerPosY)
         {
-            Model = "G";
+            Model = "D";
             Console.SetCursorPosition(FlowerPos.X, FlowerPos.Y);
             Console.WriteLine(Model);
             FlowersManager.Instance.AddFlower(this);
@@ -28,10 +25,8 @@ namespace EcoSystem
 
         public override Flower CreateNew(int posX, int posY)
         {
-            Grass grass = new Grass(posX,posY);
-            return grass;
+            Hogweed hogweed = new Hogweed(posX, posY);
+            return hogweed;
         }
-
-        
     }
 }

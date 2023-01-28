@@ -8,6 +8,13 @@ namespace EcoSystem
 {
     internal class Turtle : Animal
     {
+        public Turtle(int age, int power, int initiative) : base(age, power, initiative)
+        {
+            Model = "T";
+            Console.SetCursorPosition(AnimPos.X, AnimPos.Y);
+            Console.WriteLine(Model);
+            AnimalsManager.Instance.AddAnimal(this);
+        }
         public Turtle(int age, int power, int initiative, int posX, int posY) : base(age, power, initiative, posX, posY)
         {
             Model = "T";
