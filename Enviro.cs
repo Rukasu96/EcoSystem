@@ -11,79 +11,76 @@ namespace EcoSystem
         private int width;
         private int height;
 
-
-        public Enviro()
+        public void Draw()
         {
+            bool isOk = false;
+            do
+            {
+                width = SetValue("Podaj szerokość (min 5): ");
+                height = SetValue("Podaj wysokość (min 5): ");
+
+                if(width * height >= 25)
+                {
+                    isOk = true;
+                }
+                else
+                {
+                    Console.WriteLine("Pole jest za małe!");
+                }
+
+            } while (!isOk);
+
+            Console.Clear();
+
+            for (int i = 0; i < height; i++)
+            {
+                for (int j = 0; j < width; j++)
+                {
+                    Write(i, j, "X");
+                    SlotController.Instance.AddSlot(i, j);
+                }
+            }
+
         }
 
-        private int SetValue()
+        private int SetValue(string sentence)
         {
             int value = 0;
             bool isCorrect = false;
-            do
+
+            while (!isCorrect)
             {
+                Console.Write(sentence);
+
                 string input;
                 input = Console.ReadLine();
 
                 if (int.TryParse(input, out int result))
                 {
-                    return result;
-                    isCorrect = true;
+                    if( result >= 5)
+                    {
+                        return result;
+                    }
+                    else
+                    {
+                        Console.WriteLine("Za mała wartość");
+                    }
                 }
                 else
                 {
                     Console.WriteLine("Niewłaściwa wartość");
-                };
-
-            } while (isCorrect);
+                }
+            } 
 
             return value;
 
         }
 
-
-        public void Draw()
+        private void Write(int x, int y, string model)
         {
-            Console.Write("Podaj szerokość: ");
-            width = SetValue();
-            Console.Write("Podaj wysokość: ");
-            height = SetValue();
-
-            int row = 0;
-
-            for (int i = 0; i < width; i++)
-            {
-                Console.SetCursorPosition(i, 0);
-                Console.Write("-");
-                Console.SetCursorPosition(i, height - 1);
-                Console.Write("-");
-            }
-
-            for (int j = 0; j < height; j++)
-            {
-                Console.SetCursorPosition(0, j);
-                Console.Write("|");
-                Console.SetCursorPosition(width, j);
-                Console.Write("|");
-
-                row++;
-                for (int k = 1; k < width; k++)
-                {
-                    if (row >= height - 1)
-                    {
-                        break;
-                    }
-
-                    Console.SetCursorPosition(k, row);
-                    SlotController.Instance.AddSlot(k, row);
-                    Console.Write("X");
-                }
-            }
-
+            Console.SetCursorPosition(x, y);
+            Console.Write(model);
         }
-
-
-
 
     }
 }

@@ -25,8 +25,13 @@ namespace EcoSystem
 
         public override Animal CreateNew(int AnimPosX, int AnimPosY)
         {
-            Sheep sheep = new Sheep(10, 1, 3, AnimPosX, AnimPosY);
+            Sheep sheep = new Sheep(5, 5, 6, AnimPosX, AnimPosY);
             return sheep;
+        }
+
+        public override Animal UseSkill(Animal animal)
+        {
+            return null;
         }
     }
 }

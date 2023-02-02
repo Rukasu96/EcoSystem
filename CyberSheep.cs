@@ -77,68 +77,50 @@ namespace EcoSystem
                             break;
                     }
                 }
-            }
 
-            if (SlotController.Instance.ReturnAnimal(AnimPos.X, AnimPos.Y) != null)
-            {
-                Animal anim = SlotController.Instance.ReturnAnimal(AnimPos.X, AnimPos.Y);
-                Animal winAnimal = Fight(anim);
-
-                if (anim.Model == "T")
+                if (SlotController.Instance.ReturnAnimal(AnimPos.X, AnimPos.Y) != null)
                 {
-                    if (winAnimal == null)
+                    Animal anim = SlotController.Instance.ReturnAnimal(AnimPos.X, AnimPos.Y);
+
+                    if (Model == anim.Model)
                     {
-                        AnimPos.X = OldPos.X;
-                        AnimPos.Y = OldPos.Y;
+                        //Second animal position
+                        int animalPosX = AnimPos.X;
+                        int animalPosY = AnimPos.Y;
+
+                        AnimPos.X = oldPos.X;
+                        AnimPos.Y = oldPos.Y;
+
+                        Reproduction(animalPosX, animalPosY);
                     }
                     else
                     {
-                        /*
-                        SlotController.Instance.ChangeSlotEmpty(OldPos.X, OldPos.Y);
-                        SlotController.Instance.ChangeSlotOccupied(AnimPos.X, AnimPos.Y, winAnimal);
-                        Console.SetCursorPosition(AnimPos.X, AnimPos.Y);
-                        Console.WriteLine(Model);
-                        */
-                        MakeMove();
+                        Animal winAnimal = Fight(anim);
+                        MakeMove(AnimPos.X, AnimPos.Y, winAnimal, true);
                     }
-                }
-                else if (Model == anim.Model)
-                {
-                    //Second animal position
-                    int animalPosX = AnimPos.X;
-                    int animalPosY = AnimPos.Y;
 
-                    AnimPos.X = OldPos.X;
-                    AnimPos.Y = OldPos.Y;
-
-                    Reproduction(animalPosX, animalPosY);
                 }
                 else
-                {/*
-                    SlotController.Instance.ChangeSlotEmpty(OldPos.X, OldPos.Y);
-                    SlotController.Instance.ChangeSlotOccupied(AnimPos.X, AnimPos.Y, Fight(anim));
-                    Console.SetCursorPosition(AnimPos.X, AnimPos.Y);
-                    Console.WriteLine(Model);
-                    */
-                    MakeMove();
+                {
+                    MakeMove(AnimPos.X, AnimPos.Y, this, true);
                 }
-
-            }
-            else if (SlotController.Instance.CheckSlotFlower(AnimPos.X, AnimPos.Y))
-            {
-                MakeMove();
             }
             else
             {
-                MakeMove();
+                Move(1);
             }
 
         }
 
         public override Animal CreateNew(int AnimPosX, int AnimPosY)
         {
-            CyberSheep cyberSheep = new CyberSheep(10, 1, 3, AnimPosX, AnimPosY);
+            CyberSheep cyberSheep = new CyberSheep(99, 8, 5, AnimPosX, AnimPosY);
             return cyberSheep;
+        }
+
+        public override Animal UseSkill(Animal animal)
+        {
+            return null;
         }
     }
 }

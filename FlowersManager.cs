@@ -8,7 +8,7 @@ namespace EcoSystem
 {
     internal class FlowersManager
     {
-        public List<Flower> flowers = new List<Flower>();
+        public List<Flower> Flowers = new List<Flower>();
 
         private static FlowersManager instance = new FlowersManager();
         public static FlowersManager Instance
@@ -18,12 +18,12 @@ namespace EcoSystem
 
         public void AddFlower(Flower flower)
         {
-            flowers.Add(flower);
+            Flowers.Add(flower);
         }
 
         public void RemoveFlower(Flower flower)
         {
-            flowers.Remove(flower);
+            Flowers.Remove(flower);
             flower.IsAlive = false;
             flower = null;
         }

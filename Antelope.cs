@@ -25,8 +25,13 @@ namespace EcoSystem
 
         public override Animal CreateNew(int AnimPosX, int AnimPosY)
         {
-            Antelope antelope = new Antelope(20, 3, 15, AnimPosX, AnimPosY);
+            Antelope antelope = new Antelope(10, 7, 10, AnimPosX, AnimPosY);
             return antelope;
+        }
+
+        public override Animal UseSkill(Animal animal)
+        {
+            return null;
         }
     }
 }

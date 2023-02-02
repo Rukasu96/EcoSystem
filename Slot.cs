@@ -9,16 +9,17 @@ namespace EcoSystem
 
     internal class Slot
     {
+        public Coordinate Coordinate { get; set; }
+        public bool IsEmpty { get; set; }
+
         private string symbol;
         private Animal animal;
         private Flower flower;
+
         public Animal Animal
         {
             get { return animal; }
         }
-        public Coordinate Coordinate { get; set; }
-        public bool IsEmpty;
-
 
         public Slot(int posX, int posY)
         {
@@ -31,8 +32,7 @@ namespace EcoSystem
         public void SetEmptySlot(int posX, int posY)
         {
             IsEmpty = true;
-            Coordinate.X = posX;
-            Coordinate.Y = posY;
+            SetCoordinates(posX, posY);
             animal = null;
             flower = null;
 
@@ -42,32 +42,37 @@ namespace EcoSystem
 
         public void SetSlotOccupied(int posX, int posY, Animal animal)
         {
-            /*if(this.animal != null)
-            {
-                MakeFight(animal);
-            }*/
-           
             if (this.flower != null)
             {
                 if(this.flower.Model == "G")
                 {
                     animal.Power += 3;
-                }else if(this.flower.Model == "B" || this.flower.Model == "D")
+                }else if(this.flower.Model == "D")
                 {
                     if (animal.Model != "C")
                     {
-                        AnimalsManager.Instance.RemoveAnimal(animal);
+                        RemoveFlowerFromSlot();
+                        animal.Death(animal);
+                        SetCoordinates(posX, posY);
+                        return;
                     }
+                }else if(this.flower.Model == "B")
+                {
+                    RemoveFlowerFromSlot();
+                    animal.Death(animal);
+                    SetCoordinates(posX, posY);
+                    return;
                 }
 
                 RemoveFlowerFromSlot();
+                SetCoordinates(posX, posY);
             }
 
             IsEmpty = false;
             this.animal = animal;
 
-            Coordinate.X = posX;
-            Coordinate.Y = posY;
+            SetCoordinates(posX, posY);
+
         }
 
         
@@ -76,16 +81,14 @@ namespace EcoSystem
             IsEmpty = false;
             this.flower = flower;
 
-            Coordinate.X = posX;
-            Coordinate.Y = posY;
+            SetCoordinates(posX, posY);
         }
         public void SetAnimalSlot(int posX, int posY, Animal animal)
         {
             IsEmpty = false;
             this.animal = animal;
 
-            Coordinate.X = posX;
-            Coordinate.Y = posY;
+            SetCoordinates(posX, posY);
         }
 
         public void RemoveFlowerFromSlot()
@@ -94,35 +97,11 @@ namespace EcoSystem
             this.flower = null;
         }
 
-        public bool IsTheSameModel(Animal animal)
+        private void SetCoordinates(int posX,int posY)
         {
-            if (this.animal == null)
-            {
-                return false;
-            }
-
-            if (this.animal.Model == animal.Model)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            Coordinate.X = posX;
+            Coordinate.Y = posY;
         }
-
-        public bool IsFlowerNull()
-        {
-            return this.flower == null;
-        }
-
-       /* private void MakeFight(Animal animal)
-        {
-            if (IsEmpty == false && this.animal.Model != animal.Model)
-            {
-                this.animal = this.animal.Fight(animal);
-            }
-        }*/
 
     }
 }

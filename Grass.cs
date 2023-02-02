@@ -12,7 +12,7 @@ namespace EcoSystem
 
         public Grass() : base()
         {
-            Model = "G";
+            Model = "J";
             Console.SetCursorPosition(FlowerPos.X, FlowerPos.Y);
             Console.WriteLine(Model);
             FlowersManager.Instance.AddFlower(this);
@@ -20,7 +20,7 @@ namespace EcoSystem
 
         public Grass(int flowerPosX, int flowerPosY) : base(flowerPosX,flowerPosY)
         {
-            Model = "G";
+            Model = "J";
             Console.SetCursorPosition(FlowerPos.X, FlowerPos.Y);
             Console.WriteLine(Model);
             FlowersManager.Instance.AddFlower(this);

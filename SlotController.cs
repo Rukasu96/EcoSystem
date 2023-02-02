@@ -8,7 +8,7 @@ namespace EcoSystem
 {
     internal class SlotController
     {
-        public List<Slot> slots = new List<Slot>();
+        public List<Slot> Slots = new List<Slot>();
 
         private static SlotController instance = new SlotController();
         public static SlotController Instance
@@ -19,12 +19,12 @@ namespace EcoSystem
         public void AddSlot(int posX, int posY)
         {
             Slot slot = new Slot(posX, posY);
-            slots.Add(slot);
+            Slots.Add(slot);
         }
 
         public void ChangeSlotEmpty(int posX, int posY)
         {
-            var slotToChange = slots.FirstOrDefault(x => x.Coordinate.X == posX && x.Coordinate.Y == posY);
+            var slotToChange = Slots.FirstOrDefault(x => x.Coordinate.X == posX && x.Coordinate.Y == posY);
             if (slotToChange != null)
             {
                 slotToChange.SetEmptySlot(posX, posY);
@@ -32,7 +32,7 @@ namespace EcoSystem
         }
         public void ChangeSlotOccupied(int posX, int posY, Animal animal)
         {
-            var slotToChange = slots.FirstOrDefault(x => x.Coordinate.X == posX && x.Coordinate.Y == posY);
+            var slotToChange = Slots.FirstOrDefault(x => x.Coordinate.X == posX && x.Coordinate.Y == posY);
             if (slotToChange != null)
             {
                 slotToChange.SetSlotOccupied(posX, posY, animal);
@@ -40,7 +40,7 @@ namespace EcoSystem
         }
         public Animal ReturnAnimal(int posX, int posY)
         {
-            Slot slot = slots.FirstOrDefault(x => x.Coordinate.X == posX && x.Coordinate.Y == posY);
+            Slot slot = Slots.FirstOrDefault(x => x.Coordinate.X == posX && x.Coordinate.Y == posY);
             
             if (slot == null)
             {
@@ -49,32 +49,10 @@ namespace EcoSystem
 
             return slot.Animal;
         }
-        public bool CheckSlotModel(int posX, int posY, Animal animal)
-        {
-            Slot slot = slots.FirstOrDefault(x => x.Coordinate.X == posX && x.Coordinate.Y == posY);
-            if (slot == null)
-            {
-                return false;
-            }
-            return slot.IsTheSameModel(animal);
-        }
-
-        public bool CheckSlotFlower(int posX, int posY)
-        {
-            Slot slot = slots.FirstOrDefault(x => x.Coordinate.X == posX && x.Coordinate.Y == posY);
-            {
-                if (slot == null)
-                {
-                    return false;
-                }
-                return slot.IsFlowerNull();
-
-            }
-        }
 
         public bool IsSlot(int posX, int posY)
         {
-            Slot slot = slots.FirstOrDefault(x => x.Coordinate.X == posX && x.Coordinate.Y == posY);
+            Slot slot = Slots.FirstOrDefault(x => x.Coordinate.X == posX && x.Coordinate.Y == posY);
 
             if (slot == null)
             {
@@ -86,7 +64,7 @@ namespace EcoSystem
 
         public bool IsSlotEmpty(int posX, int posY)
         {
-            Slot slot = slots.FirstOrDefault(x => x.Coordinate.X == posX && x.Coordinate.Y == posY);
+            Slot slot = Slots.FirstOrDefault(x => x.Coordinate.X == posX && x.Coordinate.Y == posY);
 
             if (slot == null)
             {

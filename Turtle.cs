@@ -14,6 +14,7 @@ namespace EcoSystem
             Console.SetCursorPosition(AnimPos.X, AnimPos.Y);
             Console.WriteLine(Model);
             AnimalsManager.Instance.AddAnimal(this);
+            haveSkill = true;
         }
         public Turtle(int age, int power, int initiative, int posX, int posY) : base(age, power, initiative, posX, posY)
         {
@@ -21,12 +22,26 @@ namespace EcoSystem
             Console.SetCursorPosition(posX, posY);
             Console.WriteLine(Model);
             AnimalsManager.Instance.AddAnimal(this);
+            haveSkill = true;
         }
 
         public override Animal CreateNew(int AnimPosX, int AnimPosY)
         {
-            Turtle turtle = new Turtle(30, 7, 2, AnimPosX, AnimPosY);
+            Turtle turtle = new Turtle(23, 3, 5, AnimPosX, AnimPosY);
             return turtle;
+        }
+
+        public override Animal UseSkill(Animal animal)
+        {
+            if(Power + 3 < animal.Power)
+            {
+                Death(this);
+                return animal;
+            }
+            else
+            {
+                return this;
+            }
         }
     }
 }

@@ -24,7 +24,7 @@ namespace EcoSystem
         public void RemoveAnimal(Animal animal)
         {
             animals.Remove(animal);
-            animal.isAlive = false;
+            animal.IsAlive = false;
             animal = null;
         }
     }

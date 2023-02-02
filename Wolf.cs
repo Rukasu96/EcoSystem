@@ -25,8 +25,13 @@ namespace EcoSystem
 
         public override Animal CreateNew(int AnimPosX, int AnimPosY)
         {
-            Wolf wolf = new Wolf(10, 10, 10, AnimPosX, AnimPosY);
+            Wolf wolf = new Wolf(10, 12, 7, AnimPosX, AnimPosY);
             return wolf;
+        }
+
+        public override Animal UseSkill(Animal animal)
+        {
+            return null;
         }
     }
 }

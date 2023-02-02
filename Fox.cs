@@ -10,23 +10,63 @@ namespace EcoSystem
     {
         public Fox(int age, int power, int initiative) : base(age, power, initiative)
         {
-            Model = "C";
+            Model = "F";
             Console.SetCursorPosition(AnimPos.X, AnimPos.Y);
             Console.WriteLine(Model);
             AnimalsManager.Instance.AddAnimal(this);
+            haveSkill = true;
         }
         public Fox(int age, int power, int initiative, int posX, int posY) : base(age, power, initiative, posX, posY)
         {
-            Model = "C";
+            Model = "F";
             Console.SetCursorPosition(posX, posY);
             Console.WriteLine(Model);
             AnimalsManager.Instance.AddAnimal(this);
+            haveSkill = true;
         }
         
         public override Animal CreateNew(int AnimPosX, int AnimPosY)
         {
-            Fox fox = new Fox(10, 1, 3, AnimPosX, AnimPosY);
+            Fox fox = new Fox(4, 6, 8, AnimPosX, AnimPosY);
             return fox;
         }
+
+        public override Animal UseSkill(Animal animal)
+        {
+            if(RandomNumber.GenerateNumber(0,2) == 1 || Power <= animal.Power)
+            {
+                for (int i = 0; i <= 1; i++)
+                {
+                    for (int j = 0; j <= 1; j++)
+                    {
+                        if (SlotController.Instance.IsSlotEmpty(AnimPos.X + i, AnimPos.Y + j))
+                        {
+                            MakeMove(AnimPos.X + i, AnimPos.Y + j, this, true);
+                        }
+                        else if(SlotController.Instance.IsSlotEmpty(AnimPos.X - i, AnimPos.Y + j))
+                        {
+                            MakeMove(AnimPos.X - i, AnimPos.Y + j, this, true);
+                        }
+                        else if (SlotController.Instance.IsSlotEmpty(AnimPos.X - i, AnimPos.Y - j))
+                        {
+                            MakeMove(AnimPos.X - i, AnimPos.Y - j, this, true);
+                        }
+                        else if (SlotController.Instance.IsSlotEmpty(AnimPos.X + i, AnimPos.Y - j))
+                        {
+                            MakeMove(AnimPos.X + i, AnimPos.Y - j, this, true);
+                        }
+                    }
+                }
+            }
+            else
+            {
+                Death(this);
+            }
+
+            return animal;
+
+        }
+
+       
     }
 }

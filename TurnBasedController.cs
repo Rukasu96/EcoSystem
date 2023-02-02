@@ -8,11 +8,6 @@ namespace EcoSystem
 {
     internal class TurnBasedController
     {
-
-        public TurnBasedController()
-        {
-        }
-
         public void StartTurn(List<Animal> animals, List<Flower> flowers)
         {
             var animalGroup = animals.OrderByDescending(x => x.Initiative).ThenByDescending(x => x.Age).ToList();
@@ -30,11 +25,8 @@ namespace EcoSystem
                         }
                         break;
                     case "C":
-                        if(animal is CyberSheep)
-                        {
-                            CyberSheep cs = (CyberSheep)animal;
-                            cs.MoveCyberSheep(1);
-                        }
+                        CyberSheep cs = (CyberSheep)animal;
+                        cs.MoveCyberSheep(1);
                         break;
                     default:
                         animal.Move(1);
@@ -51,6 +43,11 @@ namespace EcoSystem
                     case "M":
                         flower.TryToReproduce();
                         flower.TryToReproduce();
+                        break;
+                    case "D":
+                        flower.TryToReproduce();
+                        Hogweed hogweed = (Hogweed)flower;
+                        hogweed.HogweedSkill();
                         break;
                     default:
                         flower.TryToReproduce();

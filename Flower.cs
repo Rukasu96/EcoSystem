@@ -10,7 +10,7 @@ namespace EcoSystem
     abstract class Flower
     {
         public string Model { get; set; }
-        public bool IsAlive;
+        public bool IsAlive { get; set; }
         public Coordinate FlowerPos { get; set; }
 
         public Flower()
@@ -32,7 +32,7 @@ namespace EcoSystem
 
         public void TryToReproduce()
         {
-            if(RandomNumber.GenerateNumber(0,4) == 3)
+            if(RandomNumber.GenerateNumber(0,5) == 3)
             {
                 Reproduction();
             }
@@ -42,44 +42,61 @@ namespace EcoSystem
         {
             bool itsDone = false;
             List<Coordinate> coordinateList = new List<Coordinate>();
-
-            while (itsDone == false)
+            for (int i = 0; i <= 1; i++)
             {
-                int randX = RandomNumber.GenerateNumber(0, 2);
-                int randY = RandomNumber.GenerateNumber(0, 2);
-
-                if (RandomNumber.GenerateNumber(0, 2) == 0)
+                for (int j = 0; j <= 1; j++)
                 {
-                    randX *= -1;
-                }
-
-                if (RandomNumber.GenerateNumber(0, 2) == 0)
-                {
-                    randY *= -1;
-                }
-
-                Coordinate coordinate = new Coordinate(randX, randY);
-                coordinateList.Add(coordinate);
-
-                if (!coordinateList.Contains(coordinate))
-                {
-                    coordinateList.Add(coordinate);
-                }
-
-                if (SlotController.Instance.IsSlotEmpty(FlowerPos.X + randX, FlowerPos.Y + randY))
-                {
-                    var flower = CreateNew(FlowerPos.X + randX, FlowerPos.Y + randY);
-                    itsDone = true;
-                    Slot slot = SlotController.Instance.slots.First(x => x.Coordinate.X == flower.FlowerPos.X && x.Coordinate.Y == flower.FlowerPos.Y);
-                    slot.SetFlowerSlot(flower.FlowerPos.X, flower.FlowerPos.Y, flower);
-                }
-
-                if (coordinateList.Count == 8)
-                {
-                    coordinateList.Clear();
-                    itsDone = true;
+                    if (SlotController.Instance.IsSlotEmpty(FlowerPos.X + i, FlowerPos.Y + j))
+                    {
+                        MakeReproduction(FlowerPos.X + i, FlowerPos.Y + j);
+                        return;
+                    }
+                    else if (SlotController.Instance.IsSlotEmpty(FlowerPos.X - i, FlowerPos.Y + j))
+                    {
+                        MakeReproduction(FlowerPos.X - i, FlowerPos.Y + j);
+                        return;
+                    }
+                    else if (SlotController.Instance.IsSlotEmpty(FlowerPos.X - i, FlowerPos.Y - j))
+                    {
+                        MakeReproduction(FlowerPos.X - i, FlowerPos.Y - j);
+                        return;
+                    }
+                    else if (SlotController.Instance.IsSlotEmpty(FlowerPos.X + i, FlowerPos.Y - j))
+                    {
+                        MakeReproduction(FlowerPos.X + i, FlowerPos.Y - j);
+                        return;
+                    }
+                    else if (SlotController.Instance.IsSlotEmpty(FlowerPos.X + i, FlowerPos.Y + j))
+                    {
+                        MakeReproduction(FlowerPos.X + i, FlowerPos.Y + j);
+                        return;
+                    }
+                    else if (SlotController.Instance.IsSlotEmpty(FlowerPos.X - i, FlowerPos.Y + j))
+                    {
+                        MakeReproduction(FlowerPos.X - i, FlowerPos.Y + j);
+                        return;
+                    }
+                    else if (SlotController.Instance.IsSlotEmpty(FlowerPos.X - i, FlowerPos.Y - j))
+                    {
+                        MakeReproduction(FlowerPos.X - i, FlowerPos.Y - j);
+                        return;
+                    }
+                    else if (SlotController.Instance.IsSlotEmpty(FlowerPos.X + i, FlowerPos.Y - j))
+                    {
+                        MakeReproduction(FlowerPos.X + i, FlowerPos.Y - j);
+                        return;
+                    }
                 }
             }
+           
+        }
+
+        private void MakeReproduction(int posX, int posY)
+        {
+            var flower = CreateNew(posX, posY);
+
+            Slot slot = SlotController.Instance.Slots.First(x => x.Coordinate.X == flower.FlowerPos.X && x.Coordinate.Y == flower.FlowerPos.Y);
+            slot.SetFlowerSlot(flower.FlowerPos.X, flower.FlowerPos.Y, flower);
         }
 
         private Slot FindEmptySlot()
@@ -88,8 +105,8 @@ namespace EcoSystem
             Slot slot;
             do
             {
-                int index = RandomNumber.GenerateNumber(0, SlotController.Instance.slots.Count);
-                slot = SlotController.Instance.slots[index];
+                int index = RandomNumber.GenerateNumber(0, SlotController.Instance.Slots.Count);
+                slot = SlotController.Instance.Slots[index];
 
                 if (slot.IsEmpty)
                 {
